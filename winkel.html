@@ -441,16 +441,16 @@
 <script>
   // ── CONFIG ──────────────────────────────────────────
   const ADMIN_PASSWORD = 'biowines2025'; // Verander dit
-  const BESTEL_EMAIL   = 'jouw@email.nl'; // Verander dit
+  const BESTEL_EMAIL   = 'koosesser@gmail.com'; // Verander dit
 
   // ── DATA ────────────────────────────────────────────
   const defaultProducts = [
-    { naam: 'La Terre Vivante', regio: 'Languedoc, Frankrijk', desc: 'Dieppaarse rode wijn met tonen van zwarte kers en kruid. Droog, vol en lang van smaak.', prijs: 16.50, type: 'rood' },
-    { naam: 'Mas de la Garrigue', regio: 'Rhône, Frankrijk', desc: 'Elegante grenache met zachte tannines. Ideaal bij lamsvlees en rijpe kaas.', prijs: 21.00, type: 'rood' },
-    { naam: 'Bianco Selvatico', regio: 'Toscane, Italië', desc: 'Frisse witte wijn op basis van vermentino. Citrus, wit fruit en een minerale afdronk.', prijs: 14.75, type: 'wit' },
-    { naam: 'Finca Silvestre', regio: 'Galicië, Spanje', desc: 'Albariño met tropisch fruit en levendige zuurgraad. Perfect bij zeevruchten.', prijs: 17.00, type: 'wit' },
-    { naam: 'Rosé de Garrigue', regio: 'Provence, Frankrijk', desc: 'Lichtroze, droge rosé van grenache en cinsault. Zomer in een glas.', prijs: 13.50, type: 'rosé' },
-    { naam: 'Pétale Sauvage', regio: 'Loire, Frankrijk', desc: 'Delicate rosé met aardbeientonen en een zachte, droge finish. Biologisch gecertificeerd.', prijs: 15.25, type: 'rosé' },
+    { naam: 'Vino A', regio: 'Regio onbekend', desc: 'Omschrijving volgt.', prijs: 0.00, type: 'rood' },
+    { naam: 'Vino B', regio: 'Regio onbekend', desc: 'Omschrijving volgt.', prijs: 0.00, type: 'rood' },
+    { naam: 'Vino C', regio: 'Regio onbekend', desc: 'Omschrijving volgt.', prijs: 0.00, type: 'wit' },
+    { naam: 'Vino D', regio: 'Regio onbekend', desc: 'Omschrijving volgt.', prijs: 0.00, type: 'wit' },
+    { naam: 'Vino E', regio: 'Regio onbekend', desc: 'Omschrijving volgt.', prijs: 0.00, type: 'rosé' },
+    { naam: 'Vino F', regio: 'Regio onbekend', desc: 'Omschrijving volgt.', prijs: 0.00, type: 'rosé' },
   ];
 
   let products = JSON.parse(localStorage.getItem('biowines_products') || 'null') || defaultProducts;
