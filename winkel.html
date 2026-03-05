@@ -400,6 +400,23 @@
 
     <!-- PANEL -->
     <div class="admin-form-wrap hidden" id="adminContent">
+      <!-- Wachtwoord wijzigen -->
+      <details style="margin-bottom:1.5rem;border:1px solid var(--stone);padding:1rem;">
+        <summary style="font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;color:var(--green);">Wachtwoord wijzigen</summary>
+        <div style="margin-top:1rem;display:flex;flex-direction:column;gap:0.75rem;">
+          <div class="form-row">
+            <label>Nieuw wachtwoord</label>
+            <input type="password" id="newPw1" placeholder="••••••••" />
+          </div>
+          <div class="form-row">
+            <label>Herhaal wachtwoord</label>
+            <input type="password" id="newPw2" placeholder="••••••••" />
+          </div>
+          <button class="save-btn" style="margin-top:0;" onclick="changePassword()">Wachtwoord opslaan</button>
+          <p id="pwMsg" style="font-size:0.8rem;display:none;"></p>
+        </div>
+      </details>
+
       <div class="admin-list" id="adminList"></div>
       <div class="admin-form">
         <h3 id="formTitle">Nieuw product toevoegen</h3>
@@ -440,7 +457,10 @@
 
 <script>
   // ── CONFIG ──────────────────────────────────────────
-  const ADMIN_PASSWORD = 'biowines2025'; // Verander dit
+  // Wachtwoord staat opgeslagen in jouw browser — niet in de code
+  function getAdminPassword() {
+    return localStorage.getItem('biowines_admin_pw') || 'biowines2025';
+  }
   const BESTEL_EMAIL   = 'koosesser@gmail.com'; // Verander dit
 
   // ── DATA ────────────────────────────────────────────
@@ -518,7 +538,7 @@
 
   function checkPassword() {
     const pw = document.getElementById('adminPassword').value;
-    if (pw === ADMIN_PASSWORD) {
+    if (pw === getAdminPassword()) {
       document.getElementById('loginScreen').classList.remove('show');
       document.getElementById('adminContent').classList.remove('hidden');
       renderAdminList();
@@ -562,6 +582,30 @@
       renderAdminList();
       renderShop();
     }
+  }
+
+  function changePassword() {
+    const pw1 = document.getElementById('newPw1').value;
+    const pw2 = document.getElementById('newPw2').value;
+    const msg = document.getElementById('pwMsg');
+    if (!pw1 || pw1.length < 6) {
+      msg.textContent = 'Minimaal 6 tekens.';
+      msg.style.color = 'var(--accent)';
+      msg.style.display = 'block';
+      return;
+    }
+    if (pw1 !== pw2) {
+      msg.textContent = 'Wachtwoorden komen niet overeen.';
+      msg.style.color = 'var(--accent)';
+      msg.style.display = 'block';
+      return;
+    }
+    localStorage.setItem('biowines_admin_pw', pw1);
+    msg.textContent = 'Wachtwoord opgeslagen ✓';
+    msg.style.color = 'var(--green)';
+    msg.style.display = 'block';
+    document.getElementById('newPw1').value = '';
+    document.getElementById('newPw2').value = '';
   }
 
   function saveProduct() {
