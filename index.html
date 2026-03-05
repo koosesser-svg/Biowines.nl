@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biowines — Eerlijke wijn, recht uit de grond</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F5F0E8;
+      --dark: #1C1A16;
+      --green: #3D5C3A;
+      --green-light: #6B8F68;
+      --stone: #C8BFA8;
+      --accent: #8B4A2F;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--dark);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      mix-blend-mode: multiply;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dark);
+      text-decoration: none;
+    }
+
+    .nav-cta {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--green);
+      text-decoration: none;
+      border-bottom: 1px solid var(--green);
+      padding-bottom: 2px;
+      transition: opacity 0.3s;
+    }
+    .nav-cta:hover { opacity: 0.6; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+    }
+
+    .hero-left {
+      background: var(--green);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 6rem 4rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: -10%;
+      width: 140%;
+      height: 140%;
+      background: radial-gradient(ellipse at 30% 70%, rgba(107,143,104,0.4) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.2s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--cream);
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.4s forwards;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--stone);
+    }
+
+    .hero-sub {
+      margin-top: 2rem;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(245,240,232,0.7);
+      max-width: 28rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.6s forwards;
+    }
+
+    .hero-actions {
+      margin-top: 3rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.8s forwards;
+    }
+
+    .btn-primary {
+      background: var(--cream);
+      color: var(--green);
+      padding: 0.9rem 2.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+    }
+    .btn-primary:hover {
+      background: var(--dark);
+      color: var(--cream);
+    }
+
+    .btn-ghost {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.6);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(245,240,232,0.3);
+      padding-bottom: 2px;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .btn-ghost:hover {
+      color: var(--cream);
+      border-color: var(--cream);
+    }
+
+    .hero-right {
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8rem 4rem;
+      position: relative;
+    }
+
+    .wine-visual {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .wine-circle {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      border: 1px solid var(--stone);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: rotateSlow 20s linear infinite;
+    }
+
+    .wine-circle-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    svg.circle-text {
+      width: 280px;
+      height: 280px;
+      animation: rotateSlow 25s linear infinite;
+    }
+
+    .wine-bottle {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 3rem 0;
+    }
+
+    .bottle-icon {
+      font-size: 7rem;
+      line-height: 1;
+      display: block;
+      filter: grayscale(1);
+      opacity: 0.15;
+    }
+
+    .wine-badge {
+      position: absolute;
+      bottom: 2rem;
+      right: -1rem;
+      background: var(--accent);
+      color: var(--cream);
+      padding: 1rem 1.2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      font-style: italic;
+      line-height: 1.3;
+      opacity: 0;
+      animation: fadeUp 1s ease 1s forwards;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.4s forwards;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 3rem;
+      background: var(--stone);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    .scroll-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--stone);
+    }
+
+    /* VALUES */
+    .values {
+      padding: 8rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--green-light);
+      margin-bottom: 4rem;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+    }
+
+    .value-item {
+      border-top: 1px solid var(--stone);
+      padding-top: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .value-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .value-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--stone);
+      line-height: 1;
+      margin-bottom: 1.2rem;
+    }
+
+    .value-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 0.8rem;
+      color: var(--dark);
+    }
+
+    .value-text {
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: rgba(28,26,22,0.65);
+    }
+
+    /* HIGHLIGHT STRIP */
+    .highlight {
+      background: var(--dark);
+      padding: 5rem 3rem;
+      overflow: hidden;
+    }
+
+    .highlight-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .highlight-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.3;
+      color: var(--cream);
+    }
+
+    .highlight-quote span {
+      color: var(--stone);
+    }
+
+    .highlight-details {
+      border-left: 1px solid rgba(200,191,168,0.2);
+      padding-left: 3rem;
+    }
+
+    .highlight-stat {
+      margin-bottom: 2.5rem;
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--stone);
+      letter-spacing: 0.1em;
+      margin-top: 0.3rem;
+    }
+
+    /* HOW IT WORKS */
+    .how {
+      padding: 8rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .how-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 5rem;
+    }
+
+    .how-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.15;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .step {
+      padding: 2rem 0;
+      border-top: 1px solid var(--stone);
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .step.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--green-light);
+      margin-bottom: 1.5rem;
+    }
+
+    .step-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 0.8rem;
+    }
+
+    .step-text {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: rgba(28,26,22,0.6);
+    }
+
+    /* CTA */
+    .cta-section {
+      background: var(--green);
+      padding: 8rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(107,143,104,0.3) 0%, transparent 70%);
+    }
+
+    .cta-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.1;
+      margin-bottom: 2.5rem;
+    }
+
+    .cta-title em {
+      font-style: italic;
+      color: var(--stone);
+    }
+
+    .cta-form {
+      display: flex;
+      gap: 0;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .cta-input {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      border: 1px solid rgba(245,240,232,0.3);
+      background: rgba(245,240,232,0.08);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .cta-input::placeholder { color: rgba(245,240,232,0.4); }
+
+    .cta-submit {
+      padding: 1rem 2rem;
+      background: var(--cream);
+      color: var(--green);
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .cta-submit:hover {
+      background: var(--dark);
+      color: var(--cream);
+    }
+
+    .cta-note {
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      color: rgba(245,240,232,0.4);
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--stone);
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dark);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(28,26,22,0.45);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--dark); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes rotateSlow {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.1); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { min-height: 100vh; padding: 8rem 2rem 5rem; }
+      .values-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .highlight-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .highlight-details { border-left: none; padding-left: 0; border-top: 1px solid rgba(200,191,168,0.2); padding-top: 2rem; }
+      .how-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      nav { padding: 1.5rem 2rem; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      .steps { grid-template-columns: 1fr; }
+      .cta-form { flex-direction: column; }
+      .cta-section { padding: 5rem 2rem; }
+      .values { padding: 5rem 2rem; }
+      .how { padding: 5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="logo" href="#">Biowines</a>
+    <a class="nav-cta" href="#aanmelden">Aanmelden</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <span class="hero-tag">Biologische wijn, eerlijk geprijsd</span>
+      <h1 class="hero-title">
+        Wijn die<br>
+        <em>eerlijk is</em><br>
+        over haar<br>
+        oorsprong.
+      </h1>
+      <p class="hero-sub">
+        Biowines selecteert biologische wijnen van kleine producenten — 
+        zonder chemie, zonder opsmuk. Direct naar jouw deur.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#aanmelden">Ontdek de selectie</a>
+        <a class="btn-ghost" href="#hoe">Hoe het werkt</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="wine-visual">
+        <div class="wine-circle"></div>
+        <svg class="circle-text" viewBox="0 0 280 280">
+          <defs>
+            <path id="circle-path" d="M 140,140 m -110,0 a 110,110 0 1,1 220,0 a 110,110 0 1,1 -220,0"/>
+          </defs>
+          <text fill="#C8BFA8" font-family="DM Sans, sans-serif" font-size="11" letter-spacing="6" font-weight="300">
+            <textPath href="#circle-path">
+              BIOLOGISCH · EERLIJK · DUURZAAM · BIOWINES.NL ·
+            </textPath>
+          </text>
+        </svg>
+        <div class="wine-bottle">
+          <span class="bottle-icon">🍷</span>
+        </div>
+        <div class="wine-badge">
+          Gecertificeerd<br>biologisch
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <span class="scroll-label">Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values">
+    <p class="section-label">Waarom biowines</p>
+    <div class="values-grid">
+      <div class="value-item">
+        <div class="value-num">01</div>
+        <h3 class="value-title">Geen compromissen</h3>
+        <p class="value-text">Alleen gecertificeerde biologische wijnen. Geen pesticiden, geen additieven, geen uitzonderingen. Wat op het etiket staat, klopt.</p>
+      </div>
+      <div class="value-item">
+        <div class="value-num">02</div>
+        <h3 class="value-title">Klein & ambachtelijk</h3>
+        <p class="value-text">We werken met kleine producenten die hun terroir kennen. Geen grootschalige fabriekswijnen — wél karakter en verhaal.</p>
+      </div>
+      <div class="value-item">
+        <div class="value-num">03</div>
+        <h3 class="value-title">Eerlijke prijs</h3>
+        <p class="value-text">Biologisch hoeft niet duur te zijn. We werken direct met producenten zodat de marge naar de wijn gaat, niet naar tussenpersonen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHT -->
+  <section class="highlight">
+    <div class="highlight-inner">
+      <blockquote class="highlight-quote">
+        "Goed wijn begint in de grond, <span>niet in de fabriek.</span>"
+      </blockquote>
+      <div class="highlight-details">
+        <div class="highlight-stat">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Gecertificeerd biologisch</div>
+        </div>
+        <div class="highlight-stat">
+          <div class="stat-num">40+</div>
+          <div class="stat-label">Geselecteerde producenten</div>
+        </div>
+        <div class="highlight-stat">
+          <div class="stat-num">6</div>
+          <div class="stat-label">Wijnregio's in Europa</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="hoe">
+    <div class="how-header">
+      <h2 class="how-title">Hoe het<br><em style="font-family:'Cormorant Garamond',serif; font-style:italic;">werkt</em></h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">— 01</div>
+        <h3 class="step-title">Kies je selectie</h3>
+        <p class="step-text">Blader door onze gecureerde collectie biologische wijnen, gefilterd op smaak, regio of gelegenheid.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">— 02</div>
+        <h3 class="step-title">Wij versturen</h3>
+        <p class="step-text">Zorgvuldig verpakt, klimaatbestendig bezorgd. Binnen 2-3 werkdagen aan de deur.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">— 03</div>
+        <h3 class="step-title">Proef & ontdek</h3>
+        <p class="step-text">Elke fles komt met het verhaal van de producent. Wijn begrijpen maakt drinken beter.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">— 04</div>
+        <h3 class="step-title">Abonneer</h3>
+        <p class="step-text">Kies voor een maandelijkse box en ontvang elke maand een nieuwe verrassing — altijd biologisch.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="aanmelden">
+    <div class="cta-inner">
+      <span class="cta-label">Biowines — binnenkort live</span>
+      <h2 class="cta-title">
+        Als eerste<br>
+        <em>toegang.</em>
+      </h2>
+      <form class="cta-form" onsubmit="handleSubmit(event)">
+        <input class="cta-input" type="email" placeholder="jouw@email.nl" required />
+        <button class="cta-submit" type="submit">Aanmelden</button>
+      </form>
+      <p class="cta-note">Geen spam. Alleen wijn.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">Biowines</span>
+    <div class="footer-links">
+      <a href="#">Over ons</a>
+      <a href="#">Producenten</a>
+      <a href="#">Contact</a>
+      <a href="#">Privacy</a>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 100);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.value-item, .step').forEach(el => observer.observe(el));
+
+    // Form
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      btn.textContent = 'Gelukt ✓';
+      btn.style.background = '#3D5C3A';
+      btn.style.color = '#F5F0E8';
+      e.target.querySelector('input').value = '';
+    }
+  </script>
+</body>
+</html>
