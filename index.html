@@ -605,7 +605,10 @@
 
   <nav>
     <a class="logo" href="#">Biowines</a>
-    <a class="nav-cta" href="#aanmelden">Aanmelden</a>
+    <div style="display:flex;gap:2rem;align-items:center;">
+      <a class="nav-cta" href="winkel.html" style="border:none;opacity:0.7;">Winkel</a>
+      <a class="nav-cta" href="#nieuwsbrief">Nieuwsbrief</a>
+    </div>
   </nav>
 
   <!-- HERO -->
@@ -729,19 +732,28 @@
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta-section" id="aanmelden">
+  <!-- WINKEL CTA -->
+  <section style="background:var(--cream);padding:5rem 3rem;text-align:center;border-top:1px solid var(--stone);">
+    <p style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green-light);margin-bottom:1rem;">Onze selectie</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:300;margin-bottom:2rem;">Bekijk de wijnen</h2>
+    <a href="winkel.html" style="display:inline-block;background:var(--green);color:var(--cream);padding:1rem 3rem;font-family:'DM Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;">Naar de winkel &rarr;</a>
+  </section>
+
+  <!-- NIEUWSBRIEF -->
+  <section class="cta-section" id="nieuwsbrief">
     <div class="cta-inner">
-      <span class="cta-label">Biowines — binnenkort live</span>
+      <span class="cta-label">Blijf op de hoogte</span>
       <h2 class="cta-title">
-        Als eerste<br>
-        <em>toegang.</em>
+        Maandelijks<br>
+        <em>de beste wijnen.</em>
       </h2>
-      <form class="cta-form" onsubmit="handleSubmit(event)">
-        <input class="cta-input" type="email" placeholder="jouw@email.nl" required />
-        <button class="cta-submit" type="submit">Aanmelden</button>
+      <p style="color:rgba(245,240,232,0.65);font-size:0.95rem;margin-bottom:2rem;max-width:400px;margin-left:auto;margin-right:auto;">Nieuwe selecties, verhalen van producenten en exclusieve aanbiedingen — rechtstreeks in je inbox.</p>
+      <form class="cta-form" onsubmit="handleNewsletter(event)">
+        <input class="cta-input" type="email" id="newsletterEmail" placeholder="jouw@email.nl" required />
+        <button class="cta-submit" type="submit">Inschrijven</button>
       </form>
-      <p class="cta-note">Geen spam. Alleen wijn.</p>
+      <p class="cta-note">Geen spam. Altijd afmelden mogelijk.</p>
+      <div id="newsletterSuccess" style="display:none;margin-top:1.5rem;color:var(--stone);font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;">Ingeschreven. Welkom bij Biowines.</div>
     </div>
   </section>
 
@@ -769,14 +781,16 @@
 
     document.querySelectorAll('.value-item, .step').forEach(el => observer.observe(el));
 
-    // Form
-    function handleSubmit(e) {
+    // Newsletter
+    function handleNewsletter(e) {
       e.preventDefault();
-      const btn = e.target.querySelector('button');
-      btn.textContent = 'Gelukt ✓';
-      btn.style.background = '#3D5C3A';
-      btn.style.color = '#F5F0E8';
-      e.target.querySelector('input').value = '';
+      const email = document.getElementById('newsletterEmail').value;
+      // TODO: koppel hier je nieuwsbriefdienst (Mailchimp, etc.)
+      // Tijdelijk: sla op in localStorage als bewijs
+      const list = JSON.parse(localStorage.getItem('biowines_newsletter') || '[]');
+      if (!list.includes(email)) { list.push(email); localStorage.setItem('biowines_newsletter', JSON.stringify(list)); }
+      e.target.style.display = 'none';
+      document.getElementById('newsletterSuccess').style.display = 'block';
     }
   </script>
 </body>
