@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Biowines — Eerlijke wijn, recht uit de grond</title>
+  <title>Biowines — Inschrijven</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --cream: #F5F0E8;
       --dark: #1C1A16;
@@ -17,780 +16,511 @@
       --stone: #C8BFA8;
       --accent: #8B4A2F;
     }
-
-    html { scroll-behavior: smooth; }
-
     body {
       background: var(--cream);
       color: var(--dark);
       font-family: 'DM Sans', sans-serif;
       font-weight: 300;
-      overflow-x: hidden;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
     }
 
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 1.5rem 3rem;
+    /* LEFT PANEL */
+    .left {
+      background: var(--green);
+      padding: 4rem;
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
-      align-items: center;
-      mix-blend-mode: multiply;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
     }
 
-    .logo {
+    .left::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 80%, rgba(107,143,104,0.5) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .left-logo {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.4rem;
       font-weight: 300;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--dark);
+      color: var(--cream);
       text-decoration: none;
     }
 
-    .nav-cta {
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--green);
-      text-decoration: none;
-      border-bottom: 1px solid var(--green);
-      padding-bottom: 2px;
-      transition: opacity 0.3s;
-    }
-    .nav-cta:hover { opacity: 0.6; }
+    .left-content { position: relative; }
 
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      position: relative;
-    }
-
-    .hero-left {
-      background: var(--green);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 6rem 4rem 5rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-left::before {
-      content: '';
-      position: absolute;
-      top: -20%;
-      left: -10%;
-      width: 140%;
-      height: 140%;
-      background: radial-gradient(ellipse at 30% 70%, rgba(107,143,104,0.4) 0%, transparent 60%);
-      pointer-events: none;
-    }
-
-    .hero-tag {
+    .left-tag {
       font-size: 0.7rem;
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--stone);
-      margin-bottom: 2rem;
-      opacity: 0;
-      animation: fadeUp 0.8s ease 0.2s forwards;
+      margin-bottom: 1.5rem;
+      display: block;
     }
 
-    .hero-title {
+    .left-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
       font-weight: 300;
-      line-height: 1.05;
+      line-height: 1.1;
       color: var(--cream);
-      opacity: 0;
-      animation: fadeUp 0.9s ease 0.4s forwards;
+      margin-bottom: 1.5rem;
     }
 
-    .hero-title em {
-      font-style: italic;
-      color: var(--stone);
+    .left-title em { font-style: italic; color: var(--stone); }
+
+    .left-desc {
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: rgba(245,240,232,0.65);
+      max-width: 340px;
     }
 
-    .hero-sub {
-      margin-top: 2rem;
-      font-size: 0.95rem;
-      line-height: 1.7;
+    .left-perks {
+      list-style: none;
+      position: relative;
+    }
+
+    .left-perks li {
+      font-size: 0.85rem;
       color: rgba(245,240,232,0.7);
-      max-width: 28rem;
-      opacity: 0;
-      animation: fadeUp 0.9s ease 0.6s forwards;
-    }
-
-    .hero-actions {
-      margin-top: 3rem;
+      padding: 0.7rem 0;
+      border-top: 1px solid rgba(200,191,168,0.2);
       display: flex;
-      gap: 1.5rem;
+      gap: 0.8rem;
       align-items: center;
-      opacity: 0;
-      animation: fadeUp 0.9s ease 0.8s forwards;
     }
 
-    .btn-primary {
-      background: var(--cream);
-      color: var(--green);
-      padding: 0.9rem 2.2rem;
+    .left-perks li::before {
+      content: '→';
+      color: var(--stone);
+      font-size: 0.75rem;
+    }
+
+    /* RIGHT PANEL */
+    .right {
+      padding: 4rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .form-header { margin-bottom: 2.5rem; }
+
+    .form-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-sub {
+      font-size: 0.85rem;
+      color: rgba(28,26,22,0.5);
+    }
+
+    .form-section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green-light);
+      margin: 2rem 0 1rem;
+      display: block;
+    }
+
+    .form-row { margin-bottom: 1rem; }
+
+    .form-row label {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(28,26,22,0.45);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-row input, .form-row select {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--stone);
+      background: white;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--dark);
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+
+    .form-row input:focus, .form-row select:focus {
+      border-color: var(--green);
+    }
+
+    .form-row input::placeholder { color: rgba(28,26,22,0.3); }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* PAYMENT OPTIONS */
+    .payment-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .payment-option {
+      position: relative;
+    }
+
+    .payment-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+    }
+
+    .payment-option label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem;
+      border: 1px solid var(--stone);
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.85rem;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--dark);
+    }
+
+    .payment-option input[type="radio"]:checked + label {
+      border-color: var(--green);
+      background: rgba(61,92,58,0.05);
+    }
+
+    .payment-icon { font-size: 1.2rem; }
+
+    .payment-name { font-weight: 400; }
+    .payment-desc { font-size: 0.7rem; color: rgba(28,26,22,0.45); display: block; }
+
+    /* CHECKBOX */
+    .checkbox-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+
+    .checkbox-row input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--green);
+      cursor: pointer;
+    }
+
+    .checkbox-row span {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: rgba(28,26,22,0.55);
+    }
+
+    /* SUBMIT */
+    .submit-btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--green);
+      color: var(--cream);
+      border: none;
       font-family: 'DM Sans', sans-serif;
       font-size: 0.8rem;
-      font-weight: 400;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      text-decoration: none;
-      transition: background 0.3s, color 0.3s;
-    }
-    .btn-primary:hover {
-      background: var(--dark);
-      color: var(--cream);
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-bottom: 1rem;
     }
 
-    .btn-ghost {
+    .submit-btn:hover { background: var(--dark); }
+    .submit-btn:disabled { background: var(--stone); cursor: not-allowed; }
+
+    .login-link {
+      text-align: center;
       font-size: 0.8rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(245,240,232,0.6);
+      color: rgba(28,26,22,0.45);
+    }
+
+    .login-link a {
+      color: var(--green);
       text-decoration: none;
-      border-bottom: 1px solid rgba(245,240,232,0.3);
-      padding-bottom: 2px;
-      transition: color 0.3s, border-color 0.3s;
-    }
-    .btn-ghost:hover {
-      color: var(--cream);
-      border-color: var(--cream);
+      border-bottom: 1px solid var(--green);
     }
 
-    .hero-right {
-      background: var(--cream);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8rem 4rem;
-      position: relative;
-    }
-
-    .wine-visual {
-      position: relative;
-      width: 100%;
-      max-width: 360px;
-    }
-
-    .wine-circle {
-      width: 280px;
-      height: 280px;
-      border-radius: 50%;
-      border: 1px solid var(--stone);
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      animation: rotateSlow 20s linear infinite;
-    }
-
-    .wine-circle-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    svg.circle-text {
-      width: 280px;
-      height: 280px;
-      animation: rotateSlow 25s linear infinite;
-    }
-
-    .wine-bottle {
-      position: relative;
-      z-index: 2;
+    /* SUCCESS */
+    .success-screen {
+      display: none;
       text-align: center;
       padding: 3rem 0;
     }
 
-    .bottle-icon {
-      font-size: 7rem;
-      line-height: 1;
-      display: block;
-      filter: grayscale(1);
-      opacity: 0.15;
-    }
-
-    .wine-badge {
-      position: absolute;
-      bottom: 2rem;
-      right: -1rem;
-      background: var(--accent);
-      color: var(--cream);
-      padding: 1rem 1.2rem;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.9rem;
-      font-style: italic;
-      line-height: 1.3;
-      opacity: 0;
-      animation: fadeUp 1s ease 1s forwards;
-    }
-
-    .hero-scroll {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      opacity: 0;
-      animation: fadeIn 1s ease 1.4s forwards;
-    }
-
-    .scroll-line {
-      width: 1px;
-      height: 3rem;
-      background: var(--stone);
-      animation: scrollPulse 2s ease-in-out infinite;
-    }
-
-    .scroll-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--stone);
-    }
-
-    /* VALUES */
-    .values {
-      padding: 8rem 3rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--green-light);
-      margin-bottom: 4rem;
-    }
-
-    .values-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 3rem;
-    }
-
-    .value-item {
-      border-top: 1px solid var(--stone);
-      padding-top: 2rem;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .value-item.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .value-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem;
-      font-weight: 300;
-      color: var(--stone);
-      line-height: 1;
-      margin-bottom: 1.2rem;
-    }
-
-    .value-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 400;
-      margin-bottom: 0.8rem;
-      color: var(--dark);
-    }
-
-    .value-text {
-      font-size: 0.9rem;
-      line-height: 1.75;
-      color: rgba(28,26,22,0.65);
-    }
-
-    /* HIGHLIGHT STRIP */
-    .highlight {
-      background: var(--dark);
-      padding: 5rem 3rem;
-      overflow: hidden;
-    }
-
-    .highlight-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6rem;
-      align-items: center;
-    }
-
-    .highlight-quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 300;
-      font-style: italic;
-      line-height: 1.3;
-      color: var(--cream);
-    }
-
-    .highlight-quote span {
-      color: var(--stone);
-    }
-
-    .highlight-details {
-      border-left: 1px solid rgba(200,191,168,0.2);
-      padding-left: 3rem;
-    }
-
-    .highlight-stat {
-      margin-bottom: 2.5rem;
-    }
-
-    .stat-num {
-      font-family: 'Cormorant Garamond', serif;
+    .success-icon {
       font-size: 3rem;
-      font-weight: 300;
-      color: var(--cream);
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.8rem;
-      color: var(--stone);
-      letter-spacing: 0.1em;
-      margin-top: 0.3rem;
-    }
-
-    /* HOW IT WORKS */
-    .how {
-      padding: 8rem 3rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .how-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 5rem;
-    }
-
-    .how-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 4vw, 3.5rem);
-      font-weight: 300;
-      line-height: 1.15;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-    }
-
-    .step {
-      padding: 2rem 0;
-      border-top: 1px solid var(--stone);
-      opacity: 0;
-      transform: translateY(15px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .step.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .step-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      color: var(--green-light);
       margin-bottom: 1.5rem;
     }
 
-    .step-title {
+    .success-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      font-weight: 400;
-      margin-bottom: 0.8rem;
-    }
-
-    .step-text {
-      font-size: 0.85rem;
-      line-height: 1.7;
-      color: rgba(28,26,22,0.6);
-    }
-
-    /* CTA */
-    .cta-section {
-      background: var(--green);
-      padding: 8rem 3rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at center, rgba(107,143,104,0.3) 0%, transparent 70%);
-    }
-
-    .cta-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .cta-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--stone);
-      margin-bottom: 1.5rem;
-      display: block;
-    }
-
-    .cta-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-size: 2rem;
       font-weight: 300;
-      color: var(--cream);
-      line-height: 1.1;
-      margin-bottom: 2.5rem;
+      margin-bottom: 0.75rem;
     }
 
-    .cta-title em {
-      font-style: italic;
-      color: var(--stone);
-    }
-
-    .cta-form {
-      display: flex;
-      gap: 0;
-      max-width: 480px;
-      margin: 0 auto;
-    }
-
-    .cta-input {
-      flex: 1;
-      padding: 1rem 1.5rem;
-      border: 1px solid rgba(245,240,232,0.3);
-      background: rgba(245,240,232,0.08);
-      color: var(--cream);
-      font-family: 'DM Sans', sans-serif;
+    .success-sub {
       font-size: 0.9rem;
-      outline: none;
+      color: rgba(28,26,22,0.55);
+      margin-bottom: 2rem;
+      line-height: 1.7;
     }
 
-    .cta-input::placeholder { color: rgba(245,240,232,0.4); }
-
-    .cta-submit {
-      padding: 1rem 2rem;
-      background: var(--cream);
-      color: var(--green);
-      border: none;
+    .success-btn {
+      display: inline-block;
+      background: var(--green);
+      color: var(--cream);
+      padding: 0.9rem 2.5rem;
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 400;
+      font-size: 0.8rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .cta-submit:hover {
-      background: var(--dark);
-      color: var(--cream);
-    }
-
-    .cta-note {
-      margin-top: 1rem;
-      font-size: 0.75rem;
-      color: rgba(245,240,232,0.4);
-    }
-
-    /* FOOTER */
-    footer {
-      padding: 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid var(--stone);
-    }
-
-    .footer-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      font-weight: 300;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--dark);
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 2rem;
-    }
-
-    .footer-links a {
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(28,26,22,0.45);
       text-decoration: none;
-      transition: color 0.2s;
+      transition: background 0.2s;
     }
 
-    .footer-links a:hover { color: var(--dark); }
+    .success-btn:hover { background: var(--dark); }
 
-    /* ANIMATIONS */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* ERROR */
+    .field-error {
+      font-size: 0.75rem;
+      color: var(--accent);
+      margin-top: 0.3rem;
+      display: none;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .form-row.has-error input,
+    .form-row.has-error select {
+      border-color: var(--accent);
     }
 
-    @keyframes rotateSlow {
-      from { transform: translate(-50%, -50%) rotate(0deg); }
-      to { transform: translate(-50%, -50%) rotate(360deg); }
-    }
+    .form-row.has-error .field-error { display: block; }
 
-    @keyframes scrollPulse {
-      0%, 100% { opacity: 0.4; transform: scaleY(1); }
-      50% { opacity: 1; transform: scaleY(1.1); }
-    }
-
-    /* RESPONSIVE */
     @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-right { display: none; }
-      .hero-left { min-height: 100vh; padding: 8rem 2rem 5rem; }
-      .values-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .steps { grid-template-columns: 1fr 1fr; }
-      .highlight-inner { grid-template-columns: 1fr; gap: 3rem; }
-      .highlight-details { border-left: none; padding-left: 0; border-top: 1px solid rgba(200,191,168,0.2); padding-top: 2rem; }
-      .how-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-      nav { padding: 1.5rem 2rem; }
-      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+      body { grid-template-columns: 1fr; }
+      .left { position: relative; height: auto; padding: 3rem 2rem; }
+      .right { padding: 3rem 2rem; }
+      .payment-options { grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 600px) {
-      .steps { grid-template-columns: 1fr; }
-      .cta-form { flex-direction: column; }
-      .cta-section { padding: 5rem 2rem; }
-      .values { padding: 5rem 2rem; }
-      .how { padding: 5rem 2rem; }
+    @media (max-width: 500px) {
+      .form-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <nav>
-    <a class="logo" href="#">Biowines</a>
-    <div style="display:flex;gap:2rem;align-items:center;">
-      <a class="nav-cta" href="winkel.html" style="border:none;opacity:0.7;">Winkel</a>
-      <a class="nav-cta" href="#nieuwsbrief">Nieuwsbrief</a>
+  <!-- LEFT -->
+  <div class="left">
+    <a class="left-logo" href="index.html">Biowines</a>
+    <div class="left-content">
+      <span class="left-tag">Word lid</span>
+      <h1 class="left-title">Toegang tot<br><em>eerlijke wijn.</em></h1>
+      <p class="left-desc">Schrijf je in en bestel direct biologische wijnen van kleine Europese producenten — zonder tussenpersoon.</p>
     </div>
-  </nav>
+    <ul class="left-perks">
+      <li>Direct toegang tot de volledige wijnselect</li>
+      <li>Altijd biologisch gecertificeerd</li>
+      <li>Bezorgd binnen 2–3 werkdagen</li>
+      <li>Betalen via Tikkie of overmaken</li>
+    </ul>
+  </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-left">
-      <span class="hero-tag">Biologische wijn, eerlijk geprijsd</span>
-      <h1 class="hero-title">
-        Wijn die<br>
-        <em>eerlijk is</em><br>
-        over haar<br>
-        oorsprong.
-      </h1>
-      <p class="hero-sub">
-        Biowines selecteert biologische wijnen van kleine producenten — 
-        zonder chemie, zonder opsmuk. Direct naar jouw deur.
-      </p>
-      <div class="hero-actions">
-        <a class="btn-primary" href="#aanmelden">Ontdek de selectie</a>
-        <a class="btn-ghost" href="#hoe">Hoe het werkt</a>
+  <!-- RIGHT -->
+  <div class="right">
+    <div id="formWrap">
+      <div class="form-header">
+        <h2 class="form-title">Maak een account</h2>
+        <p class="form-sub">Vul je gegevens in om direct toegang te krijgen.</p>
       </div>
-    </div>
-    <div class="hero-right">
-      <div class="wine-visual">
-        <div class="wine-circle"></div>
-        <svg class="circle-text" viewBox="0 0 280 280">
-          <defs>
-            <path id="circle-path" d="M 140,140 m -110,0 a 110,110 0 1,1 220,0 a 110,110 0 1,1 -220,0"/>
-          </defs>
-          <text fill="#C8BFA8" font-family="DM Sans, sans-serif" font-size="11" letter-spacing="6" font-weight="300">
-            <textPath href="#circle-path">
-              BIOLOGISCH · EERLIJK · DUURZAAM · BIOWINES.NL ·
-            </textPath>
-          </text>
-        </svg>
-        <div class="wine-bottle">
-          <span class="bottle-icon">🍷</span>
+
+      <span class="form-section-label">Persoonlijke gegevens</span>
+
+      <div class="form-grid">
+        <div class="form-row" id="row-voornaam">
+          <label>Voornaam</label>
+          <input type="text" id="voornaam" placeholder="Jan" />
+          <span class="field-error">Verplicht veld</span>
         </div>
-        <div class="wine-badge">
-          Gecertificeerd<br>biologisch
+        <div class="form-row" id="row-achternaam">
+          <label>Achternaam</label>
+          <input type="text" id="achternaam" placeholder="de Vries" />
+          <span class="field-error">Verplicht veld</span>
         </div>
       </div>
-    </div>
 
-    <div class="hero-scroll">
-      <span class="scroll-label">Scroll</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
+      <div class="form-row" id="row-email">
+        <label>E-mailadres</label>
+        <input type="email" id="email" placeholder="jan@email.nl" />
+        <span class="field-error">Geldig e-mailadres verplicht</span>
+      </div>
 
-  <!-- VALUES -->
-  <section class="values">
-    <p class="section-label">Waarom biowines</p>
-    <div class="values-grid">
-      <div class="value-item">
-        <div class="value-num">01</div>
-        <h3 class="value-title">Geen compromissen</h3>
-        <p class="value-text">Alleen gecertificeerde biologische wijnen. Geen pesticiden, geen additieven, geen uitzonderingen. Wat op het etiket staat, klopt.</p>
+      <div class="form-row" id="row-telefoon">
+        <label>Telefoonnummer</label>
+        <input type="tel" id="telefoon" placeholder="+31 6 12345678" />
+        <span class="field-error">Verplicht veld</span>
       </div>
-      <div class="value-item">
-        <div class="value-num">02</div>
-        <h3 class="value-title">Klein & ambachtelijk</h3>
-        <p class="value-text">We werken met kleine producenten die hun terroir kennen. Geen grootschalige fabriekswijnen — wél karakter en verhaal.</p>
-      </div>
-      <div class="value-item">
-        <div class="value-num">03</div>
-        <h3 class="value-title">Eerlijke prijs</h3>
-        <p class="value-text">Biologisch hoeft niet duur te zijn. We werken direct met producenten zodat de marge naar de wijn gaat, niet naar tussenpersonen.</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- HIGHLIGHT -->
-  <section class="highlight">
-    <div class="highlight-inner">
-      <blockquote class="highlight-quote">
-        "Goed wijn begint in de grond, <span>niet in de fabriek.</span>"
-      </blockquote>
-      <div class="highlight-details">
-        <div class="highlight-stat">
-          <div class="stat-num">100%</div>
-          <div class="stat-label">Gecertificeerd biologisch</div>
+      <span class="form-section-label">Bezorgadres</span>
+
+      <div class="form-row" id="row-straat">
+        <label>Straat + huisnummer</label>
+        <input type="text" id="straat" placeholder="Keizersgracht 123" />
+        <span class="field-error">Verplicht veld</span>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-row" id="row-postcode">
+          <label>Postcode</label>
+          <input type="text" id="postcode" placeholder="1234 AB" />
+          <span class="field-error">Verplicht veld</span>
         </div>
-        <div class="highlight-stat">
-          <div class="stat-num">40+</div>
-          <div class="stat-label">Geselecteerde producenten</div>
-        </div>
-        <div class="highlight-stat">
-          <div class="stat-num">6</div>
-          <div class="stat-label">Wijnregio's in Europa</div>
+        <div class="form-row" id="row-stad">
+          <label>Stad</label>
+          <input type="text" id="stad" placeholder="Amsterdam" />
+          <span class="field-error">Verplicht veld</span>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- HOW IT WORKS -->
-  <section class="how" id="hoe">
-    <div class="how-header">
-      <h2 class="how-title">Hoe het<br><em style="font-family:'Cormorant Garamond',serif; font-style:italic;">werkt</em></h2>
-    </div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">— 01</div>
-        <h3 class="step-title">Kies je selectie</h3>
-        <p class="step-text">Blader door onze gecureerde collectie biologische wijnen, gefilterd op smaak, regio of gelegenheid.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">— 02</div>
-        <h3 class="step-title">Wij versturen</h3>
-        <p class="step-text">Zorgvuldig verpakt, klimaatbestendig bezorgd. Binnen 2-3 werkdagen aan de deur.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">— 03</div>
-        <h3 class="step-title">Proef & ontdek</h3>
-        <p class="step-text">Elke fles komt met het verhaal van de producent. Wijn begrijpen maakt drinken beter.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">— 04</div>
-        <h3 class="step-title">Abonneer</h3>
-        <p class="step-text">Kies voor een maandelijkse box en ontvang elke maand een nieuwe verrassing — altijd biologisch.</p>
-      </div>
-    </div>
-  </section>
+      <span class="form-section-label">Betalingsvoorkeur</span>
 
-  <!-- WINKEL CTA -->
-  <section style="background:var(--cream);padding:5rem 3rem;text-align:center;border-top:1px solid var(--stone);">
-    <p style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green-light);margin-bottom:1rem;">Onze selectie</p>
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:300;margin-bottom:2rem;">Bekijk de wijnen</h2>
-    <a href="winkel.html" style="display:inline-block;background:var(--green);color:var(--cream);padding:1rem 3rem;font-family:'DM Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;">Naar de winkel &rarr;</a>
-  </section>
+      <div class="payment-options">
+        <div class="payment-option">
+          <input type="radio" name="betaling" id="tikkie" value="Tikkie" checked />
+          <label for="tikkie">
+            <span class="payment-icon">📱</span>
+            <span>
+              <span class="payment-name">Tikkie</span>
+              <span class="payment-desc">Je ontvangt een Tikkie na bestelling</span>
+            </span>
+          </label>
+        </div>
+        <div class="payment-option">
+          <input type="radio" name="betaling" id="overmaken" value="Overmaken" />
+          <label for="overmaken">
+            <span class="payment-icon">🏦</span>
+            <span>
+              <span class="payment-name">Overmaken</span>
+              <span class="payment-desc">Bankoverschrijving na bestelling</span>
+            </span>
+          </label>
+        </div>
+      </div>
 
-  <!-- NIEUWSBRIEF -->
-  <section class="cta-section" id="nieuwsbrief">
-    <div class="cta-inner">
-      <span class="cta-label">Blijf op de hoogte</span>
-      <h2 class="cta-title">
-        Maandelijks<br>
-        <em>de beste wijnen.</em>
-      </h2>
-      <p style="color:rgba(245,240,232,0.65);font-size:0.95rem;margin-bottom:2rem;max-width:400px;margin-left:auto;margin-right:auto;">Nieuwe selecties, verhalen van producenten en exclusieve aanbiedingen — rechtstreeks in je inbox.</p>
-      <form class="cta-form" onsubmit="handleNewsletter(event)">
-        <input class="cta-input" type="email" id="newsletterEmail" placeholder="jouw@email.nl" required />
-        <button class="cta-submit" type="submit">Inschrijven</button>
-      </form>
-      <p class="cta-note">Geen spam. Altijd afmelden mogelijk.</p>
-      <div id="newsletterSuccess" style="display:none;margin-top:1.5rem;color:var(--stone);font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;">Ingeschreven. Welkom bij Biowines.</div>
-    </div>
-  </section>
+      <div class="checkbox-row">
+        <input type="checkbox" id="akkoord" />
+        <span>Ik ga akkoord met de <a href="#" style="color:var(--green);">algemene voorwaarden</a> en geef toestemming voor het opslaan van mijn gegevens.</span>
+      </div>
 
-  <!-- FOOTER -->
-  <footer>
-    <span class="footer-logo">Biowines</span>
-    <div class="footer-links">
-      <a href="#">Over ons</a>
-      <a href="#">Producenten</a>
-      <a href="#">Contact</a>
-      <a href="#">Privacy</a>
+      <button class="submit-btn" onclick="handleInschrijving()">Account aanmaken & naar de winkel</button>
+
+      <p class="login-link">Al ingeschreven? <a href="winkel.html">Direct naar de winkel</a></p>
     </div>
-  </footer>
+
+    <!-- SUCCESS -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">🍷</div>
+      <h2 class="success-title">Welkom bij Biowines.</h2>
+      <p class="success-sub">Je account is aangemaakt. Je hebt nu direct toegang tot onze wijnselect.<br>Koos ontvangt je gegevens en neemt contact op bij je eerste bestelling.</p>
+      <a class="success-btn" href="winkel.html">Bekijk de wijnen →</a>
+    </div>
+  </div>
 
   <script>
-    // Scroll reveal
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 100);
-          observer.unobserve(entry.target);
+    const ADMIN_EMAIL = 'koosesser@gmail.com';
+
+    function validate() {
+      let ok = true;
+
+      const fields = [
+        { id: 'voornaam', row: 'row-voornaam', check: v => v.length > 0 },
+        { id: 'achternaam', row: 'row-achternaam', check: v => v.length > 0 },
+        { id: 'email', row: 'row-email', check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+        { id: 'telefoon', row: 'row-telefoon', check: v => v.length > 0 },
+        { id: 'straat', row: 'row-straat', check: v => v.length > 0 },
+        { id: 'postcode', row: 'row-postcode', check: v => v.length > 0 },
+        { id: 'stad', row: 'row-stad', check: v => v.length > 0 },
+      ];
+
+      fields.forEach(f => {
+        const val = document.getElementById(f.id).value.trim();
+        const row = document.getElementById(f.row);
+        if (!f.check(val)) {
+          row.classList.add('has-error');
+          ok = false;
+        } else {
+          row.classList.remove('has-error');
         }
       });
-    }, { threshold: 0.15 });
 
-    document.querySelectorAll('.value-item, .step').forEach(el => observer.observe(el));
+      if (!document.getElementById('akkoord').checked) {
+        alert('Ga akkoord met de algemene voorwaarden om door te gaan.');
+        ok = false;
+      }
 
-    // Newsletter
-    function handleNewsletter(e) {
-      e.preventDefault();
-      const email = document.getElementById('newsletterEmail').value;
-      // TODO: koppel hier je nieuwsbriefdienst (Mailchimp, etc.)
-      // Tijdelijk: sla op in localStorage als bewijs
-      const list = JSON.parse(localStorage.getItem('biowines_newsletter') || '[]');
-      if (!list.includes(email)) { list.push(email); localStorage.setItem('biowines_newsletter', JSON.stringify(list)); }
-      e.target.style.display = 'none';
-      document.getElementById('newsletterSuccess').style.display = 'block';
+      return ok;
+    }
+
+    function handleInschrijving() {
+      if (!validate()) return;
+
+      const voornaam  = document.getElementById('voornaam').value.trim();
+      const achternaam = document.getElementById('achternaam').value.trim();
+      const email     = document.getElementById('email').value.trim();
+      const telefoon  = document.getElementById('telefoon').value.trim();
+      const straat    = document.getElementById('straat').value.trim();
+      const postcode  = document.getElementById('postcode').value.trim();
+      const stad      = document.getElementById('stad').value.trim();
+      const betaling  = document.querySelector('input[name="betaling"]:checked').value;
+
+      // Sla op in localStorage zodat winkel.html weet dat gebruiker is ingeschreven
+      const gebruiker = { voornaam, achternaam, email, telefoon, straat, postcode, stad, betaling, datum: new Date().toLocaleDateString('nl-NL') };
+      localStorage.setItem('biowines_user', JSON.stringify(gebruiker));
+
+      // Stuur e-mail naar Koos
+      const subject = encodeURIComponent(`Nieuwe inschrijving: ${voornaam} ${achternaam}`);
+      const body = encodeURIComponent(
+        `Nieuwe inschrijving op biowines.nl\n\n` +
+        `Naam: ${voornaam} ${achternaam}\n` +
+        `E-mail: ${email}\n` +
+        `Telefoon: ${telefoon}\n` +
+        `Adres: ${straat}, ${postcode} ${stad}\n` +
+        `Betalingsvoorkeur: ${betaling}\n` +
+        `Datum: ${new Date().toLocaleDateString('nl-NL')}`
+      );
+      window.open(`mailto:${ADMIN_EMAIL}?subject=${subject}&body=${body}`);
+
+      // Toon success
+      document.getElementById('formWrap').style.display = 'none';
+      document.getElementById('successScreen').style.display = 'block';
     }
   </script>
 </body>
