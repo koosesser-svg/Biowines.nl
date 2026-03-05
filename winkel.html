@@ -494,7 +494,16 @@
     currentFilter = type;
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    renderShop();
+    // Toegangscontrole actief op live site
+  const user = JSON.parse(localStorage.getItem('biowines_user') || 'null');
+  if (user) {
+    const welkom = document.createElement('span');
+    welkom.style.cssText = 'font-size:0.75rem;color:rgba(28,26,22,0.5);letter-spacing:0.05em;';
+    welkom.textContent = 'Welkom, ' + user.voornaam;
+    document.querySelector('.nav-links').prepend(welkom);
+  }
+
+  renderShop();
   }
 
   // ── ADMIN ────────────────────────────────────────────
@@ -587,6 +596,15 @@
   document.getElementById('adminOverlay').addEventListener('click', function(e) {
     if (e.target === this) closeAdmin();
   });
+
+  // Toegangscontrole actief op live site
+  const user = JSON.parse(localStorage.getItem('biowines_user') || 'null');
+  if (user) {
+    const welkom = document.createElement('span');
+    welkom.style.cssText = 'font-size:0.75rem;color:rgba(28,26,22,0.5);letter-spacing:0.05em;';
+    welkom.textContent = 'Welkom, ' + user.voornaam;
+    document.querySelector('.nav-links').prepend(welkom);
+  }
 
   renderShop();
 </script>
