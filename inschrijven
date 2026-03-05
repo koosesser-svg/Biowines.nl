@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biowines — Inschrijven</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #F5F0E8;
+      --dark: #1C1A16;
+      --green: #3D5C3A;
+      --green-light: #6B8F68;
+      --stone: #C8BFA8;
+      --accent: #8B4A2F;
+    }
+    body {
+      background: var(--cream);
+      color: var(--dark);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* LEFT PANEL */
+    .left {
+      background: var(--green);
+      padding: 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .left::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 80%, rgba(107,143,104,0.5) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .left-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+    }
+
+    .left-content { position: relative; }
+
+    .left-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .left-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+    }
+
+    .left-title em { font-style: italic; color: var(--stone); }
+
+    .left-desc {
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: rgba(245,240,232,0.65);
+      max-width: 340px;
+    }
+
+    .left-perks {
+      list-style: none;
+      position: relative;
+    }
+
+    .left-perks li {
+      font-size: 0.85rem;
+      color: rgba(245,240,232,0.7);
+      padding: 0.7rem 0;
+      border-top: 1px solid rgba(200,191,168,0.2);
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+    }
+
+    .left-perks li::before {
+      content: '→';
+      color: var(--stone);
+      font-size: 0.75rem;
+    }
+
+    /* RIGHT PANEL */
+    .right {
+      padding: 4rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .form-header { margin-bottom: 2.5rem; }
+
+    .form-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-sub {
+      font-size: 0.85rem;
+      color: rgba(28,26,22,0.5);
+    }
+
+    .form-section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green-light);
+      margin: 2rem 0 1rem;
+      display: block;
+    }
+
+    .form-row { margin-bottom: 1rem; }
+
+    .form-row label {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(28,26,22,0.45);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-row input, .form-row select {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--stone);
+      background: white;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--dark);
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+
+    .form-row input:focus, .form-row select:focus {
+      border-color: var(--green);
+    }
+
+    .form-row input::placeholder { color: rgba(28,26,22,0.3); }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* PAYMENT OPTIONS */
+    .payment-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .payment-option {
+      position: relative;
+    }
+
+    .payment-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+    }
+
+    .payment-option label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem;
+      border: 1px solid var(--stone);
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.85rem;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--dark);
+    }
+
+    .payment-option input[type="radio"]:checked + label {
+      border-color: var(--green);
+      background: rgba(61,92,58,0.05);
+    }
+
+    .payment-icon { font-size: 1.2rem; }
+
+    .payment-name { font-weight: 400; }
+    .payment-desc { font-size: 0.7rem; color: rgba(28,26,22,0.45); display: block; }
+
+    /* CHECKBOX */
+    .checkbox-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+
+    .checkbox-row input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--green);
+      cursor: pointer;
+    }
+
+    .checkbox-row span {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: rgba(28,26,22,0.55);
+    }
+
+    /* SUBMIT */
+    .submit-btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--green);
+      color: var(--cream);
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-bottom: 1rem;
+    }
+
+    .submit-btn:hover { background: var(--dark); }
+    .submit-btn:disabled { background: var(--stone); cursor: not-allowed; }
+
+    .login-link {
+      text-align: center;
+      font-size: 0.8rem;
+      color: rgba(28,26,22,0.45);
+    }
+
+    .login-link a {
+      color: var(--green);
+      text-decoration: none;
+      border-bottom: 1px solid var(--green);
+    }
+
+    /* SUCCESS */
+    .success-screen {
+      display: none;
+      text-align: center;
+      padding: 3rem 0;
+    }
+
+    .success-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .success-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      margin-bottom: 0.75rem;
+    }
+
+    .success-sub {
+      font-size: 0.9rem;
+      color: rgba(28,26,22,0.55);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .success-btn {
+      display: inline-block;
+      background: var(--green);
+      color: var(--cream);
+      padding: 0.9rem 2.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .success-btn:hover { background: var(--dark); }
+
+    /* ERROR */
+    .field-error {
+      font-size: 0.75rem;
+      color: var(--accent);
+      margin-top: 0.3rem;
+      display: none;
+    }
+
+    .form-row.has-error input,
+    .form-row.has-error select {
+      border-color: var(--accent);
+    }
+
+    .form-row.has-error .field-error { display: block; }
+
+    @media (max-width: 900px) {
+      body { grid-template-columns: 1fr; }
+      .left { position: relative; height: auto; padding: 3rem 2rem; }
+      .right { padding: 3rem 2rem; }
+      .payment-options { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 500px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LEFT -->
+  <div class="left">
+    <a class="left-logo" href="index.html">Biowines</a>
+    <div class="left-content">
+      <span class="left-tag">Word lid</span>
+      <h1 class="left-title">Toegang tot<br><em>eerlijke wijn.</em></h1>
+      <p class="left-desc">Schrijf je in en bestel direct biologische wijnen van kleine Europese producenten — zonder tussenpersoon.</p>
+    </div>
+    <ul class="left-perks">
+      <li>Direct toegang tot de volledige wijnselect</li>
+      <li>Altijd biologisch gecertificeerd</li>
+      <li>Bezorgd binnen 2–3 werkdagen</li>
+      <li>Betalen via Tikkie of overmaken</li>
+    </ul>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+    <div id="formWrap">
+      <div class="form-header">
+        <h2 class="form-title">Maak een account</h2>
+        <p class="form-sub">Vul je gegevens in om direct toegang te krijgen.</p>
+      </div>
+
+      <span class="form-section-label">Persoonlijke gegevens</span>
+
+      <div class="form-grid">
+        <div class="form-row" id="row-voornaam">
+          <label>Voornaam</label>
+          <input type="text" id="voornaam" placeholder="Jan" />
+          <span class="field-error">Verplicht veld</span>
+        </div>
+        <div class="form-row" id="row-achternaam">
+          <label>Achternaam</label>
+          <input type="text" id="achternaam" placeholder="de Vries" />
+          <span class="field-error">Verplicht veld</span>
+        </div>
+      </div>
+
+      <div class="form-row" id="row-email">
+        <label>E-mailadres</label>
+        <input type="email" id="email" placeholder="jan@email.nl" />
+        <span class="field-error">Geldig e-mailadres verplicht</span>
+      </div>
+
+      <div class="form-row" id="row-telefoon">
+        <label>Telefoonnummer</label>
+        <input type="tel" id="telefoon" placeholder="+31 6 12345678" />
+        <span class="field-error">Verplicht veld</span>
+      </div>
+
+      <span class="form-section-label">Bezorgadres</span>
+
+      <div class="form-row" id="row-straat">
+        <label>Straat + huisnummer</label>
+        <input type="text" id="straat" placeholder="Keizersgracht 123" />
+        <span class="field-error">Verplicht veld</span>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-row" id="row-postcode">
+          <label>Postcode</label>
+          <input type="text" id="postcode" placeholder="1234 AB" />
+          <span class="field-error">Verplicht veld</span>
+        </div>
+        <div class="form-row" id="row-stad">
+          <label>Stad</label>
+          <input type="text" id="stad" placeholder="Amsterdam" />
+          <span class="field-error">Verplicht veld</span>
+        </div>
+      </div>
+
+      <span class="form-section-label">Betalingsvoorkeur</span>
+
+      <div class="payment-options">
+        <div class="payment-option">
+          <input type="radio" name="betaling" id="tikkie" value="Tikkie" checked />
+          <label for="tikkie">
+            <span class="payment-icon">📱</span>
+            <span>
+              <span class="payment-name">Tikkie</span>
+              <span class="payment-desc">Je ontvangt een Tikkie na bestelling</span>
+            </span>
+          </label>
+        </div>
+        <div class="payment-option">
+          <input type="radio" name="betaling" id="overmaken" value="Overmaken" />
+          <label for="overmaken">
+            <span class="payment-icon">🏦</span>
+            <span>
+              <span class="payment-name">Overmaken</span>
+              <span class="payment-desc">Bankoverschrijving na bestelling</span>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <div class="checkbox-row">
+        <input type="checkbox" id="akkoord" />
+        <span>Ik ga akkoord met de <a href="#" style="color:var(--green);">algemene voorwaarden</a> en geef toestemming voor het opslaan van mijn gegevens.</span>
+      </div>
+
+      <button class="submit-btn" onclick="handleInschrijving()">Account aanmaken & naar de winkel</button>
+
+      <p class="login-link">Al ingeschreven? <a href="winkel.html">Direct naar de winkel</a></p>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">🍷</div>
+      <h2 class="success-title">Welkom bij Biowines.</h2>
+      <p class="success-sub">Je account is aangemaakt. Je hebt nu direct toegang tot onze wijnselect.<br>Koos ontvangt je gegevens en neemt contact op bij je eerste bestelling.</p>
+      <a class="success-btn" href="winkel.html">Bekijk de wijnen →</a>
+    </div>
+  </div>
+
+  <script>
+    const ADMIN_EMAIL = 'koosesser@gmail.com';
+
+    function validate() {
+      let ok = true;
+
+      const fields = [
+        { id: 'voornaam', row: 'row-voornaam', check: v => v.length > 0 },
+        { id: 'achternaam', row: 'row-achternaam', check: v => v.length > 0 },
+        { id: 'email', row: 'row-email', check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+        { id: 'telefoon', row: 'row-telefoon', check: v => v.length > 0 },
+        { id: 'straat', row: 'row-straat', check: v => v.length > 0 },
+        { id: 'postcode', row: 'row-postcode', check: v => v.length > 0 },
+        { id: 'stad', row: 'row-stad', check: v => v.length > 0 },
+      ];
+
+      fields.forEach(f => {
+        const val = document.getElementById(f.id).value.trim();
+        const row = document.getElementById(f.row);
+        if (!f.check(val)) {
+          row.classList.add('has-error');
+          ok = false;
+        } else {
+          row.classList.remove('has-error');
+        }
+      });
+
+      if (!document.getElementById('akkoord').checked) {
+        alert('Ga akkoord met de algemene voorwaarden om door te gaan.');
+        ok = false;
+      }
+
+      return ok;
+    }
+
+    function handleInschrijving() {
+      if (!validate()) return;
+
+      const voornaam  = document.getElementById('voornaam').value.trim();
+      const achternaam = document.getElementById('achternaam').value.trim();
+      const email     = document.getElementById('email').value.trim();
+      const telefoon  = document.getElementById('telefoon').value.trim();
+      const straat    = document.getElementById('straat').value.trim();
+      const postcode  = document.getElementById('postcode').value.trim();
+      const stad      = document.getElementById('stad').value.trim();
+      const betaling  = document.querySelector('input[name="betaling"]:checked').value;
+
+      // Sla op in localStorage zodat winkel.html weet dat gebruiker is ingeschreven
+      const gebruiker = { voornaam, achternaam, email, telefoon, straat, postcode, stad, betaling, datum: new Date().toLocaleDateString('nl-NL') };
+      localStorage.setItem('biowines_user', JSON.stringify(gebruiker));
+
+      // Stuur e-mail naar Koos
+      const subject = encodeURIComponent(`Nieuwe inschrijving: ${voornaam} ${achternaam}`);
+      const body = encodeURIComponent(
+        `Nieuwe inschrijving op biowines.nl\n\n` +
+        `Naam: ${voornaam} ${achternaam}\n` +
+        `E-mail: ${email}\n` +
+        `Telefoon: ${telefoon}\n` +
+        `Adres: ${straat}, ${postcode} ${stad}\n` +
+        `Betalingsvoorkeur: ${betaling}\n` +
+        `Datum: ${new Date().toLocaleDateString('nl-NL')}`
+      );
+      window.open(`mailto:${ADMIN_EMAIL}?subject=${subject}&body=${body}`);
+
+      // Toon success
+      document.getElementById('formWrap').style.display = 'none';
+      document.getElementById('successScreen').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
